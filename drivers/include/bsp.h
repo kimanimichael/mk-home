@@ -12,7 +12,13 @@ namespace BSP
 
     void BSP_LED_off();
 
+    /**
+     * @brief blocking wait in line
+     * @param ms no. of milliseconds to wait
+     */
+    void BSP_delay(unsigned int ms);
+
     LED* get_default_onboard_led();
-}
+};
 
 #endif
