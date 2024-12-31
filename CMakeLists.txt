@@ -16,17 +16,56 @@ if(PLATFORM STREQUAL "ESP32")
     idf_build_component(src)
     add_definitions(-DESP32)
 
-elseif(PLATFORM STREQUAL "STM32F429ZI")
-    set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/stm32_toolchain.cmake)
+        add_definitions(-DESP32)
+    else ()
+        message(FATAL_ERROR "Platform not currently supported: " ${PLATFORM})
+    endif ()
+    project(mk-home)
+
+
+elseif(PORT STREQUAL "STM32F429ZI")
+    if (PLATFORM STREQUAL "mbed-os")
+        message("STM32F429ZI port selected with mbed-os")
+
+        set(APP_TARGET mk-home)
+
+
+        set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/mbed-os CACHE INTERNAL "")
+        set(MBED_CONFIG_PATH ${CMAKE_CURRENT_BINARY_DIR}/mbed CACHE INTERNAL "")
+
+        SET(CMAKE_COLOR_MAKEFILE ON)
+        add_compile_options(-fdiagnostics-color=always)
+
+        include(${MBED_PATH}/tools/cmake/app.cmake)
+        project(${APP_TARGET})
+
+        add_subdirectory(${MBED_PATH})
+        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/drivers)
+        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+        add_executable(${APP_TARGET})
+        mbed_configure_app_target(${APP_TARGET})
+
+        target_link_libraries(${APP_TARGET}
+            PRIVATE
+                mbed-os
+                drivers
+                src
+        )
+        mbed_set_post_build(${APP_TARGET})
+
+        option(VERBOSE_BUILD "Have a verbose build process")
+        if(VERBOSE_BUILD)
+            set(CMAKE_VERBOSE_MAKEFILE ON)
+        endif()
+    else ()
+        message(FATAL_ERROR "Platform not currently supported for STM32F429ZI: " ${PLATFORM})
+    endif ()
+
+else ()
+    message(FATAL_ERROR "Port not currently supported: " ${PORT})
 endif()
 
-project(mk-home)
-
-if(PLATFORM STREQUAL "ESP32")
-    add_definitions(-DESP32)
-elseif(PLATFORM STREQUAL "STM32F429ZI")
-    add_definitions(-DSTM32F429xx)
-endif()
 
 # Add subdirectories
 #add_subdirectory(drivers)

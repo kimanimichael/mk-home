@@ -1,10 +1,23 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-if (NOT DEFINED PLATFORM)
-    set(PLATFORM "ESP32")
-endif ()
+if (PLATFORM STREQUAL "mbed-os")
+    add_library(drivers INTERFACE)
 
-if(PLATFORM STREQUAL "ESP32")
+    if (PORT STREQUAL "STM32F429ZI")
+        target_include_directories(drivers INTERFACE
+                ${CMAKE_CURRENT_SOURCE_DIR}/ports/STM32F429ZI/mbed/include)
+    endif ()
+
+    target_include_directories(drivers INTERFACE
+            ${CMAKE_CURRENT_SOURCE_DIR}/include/
+            ${CMAKE_CURRENT_SOURCE_DIR}/include/actuators
+            ${CMAKE_CURRENT_SOURCE_DIR}/include/sensors/
+    )
+    target_sources(drivers INTERFACE
+            ${CMAKE_CURRENT_SOURCE_DIR}/ports/mbed-common/actuators/led.cpp
+            ${CMAKE_CURRENT_SOURCE_DIR}/ports/mbed-common/bsp.cpp
+    )
+else ()
     idf_component_register(
             SRCS
             "ports/ESP32/actuators/led.cpp"
@@ -15,7 +28,5 @@ if(PLATFORM STREQUAL "ESP32")
             REQUIRES
             "driver"
     )
-else()
-    message(FATAL_ERROR "Platform not supported: ${PLATFORM}")
-
 endif ()
+
