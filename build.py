@@ -5,7 +5,7 @@ import os
 
 ESP_IDF_DIR = '''$HOME/esp/'''
 
-CMAKE_GEN_CMD = '''cmake -S .  -B cmake-build/{PORT} -G Ninja -DPLATFORM={PORT}'''
+CMAKE_GEN_CMD = '''cmake -S .  -B cmake-build/{PORT} -G Ninja -DPORT={PORT} -DPLATFORM={PLATFORM}'''
 CMAKE_BUILD_CMD = '''cmake --build cmake-build/{PORT}'''
 
 IMAGE_DIR = '''cmake-build/{PORT}/mk-home.bin'''
@@ -31,8 +31,8 @@ def build_image(port, platform):
         print(colorama.Fore.CYAN, "Sourcing ESP-IDF environment" + colorama.Style.RESET_ALL)
         set_up_idf_env(ESP_IDF_DIR)
 
-    cmake_gen_command = CMAKE_GEN_CMD.format(PORT=port)
-    cmake_build_command = CMAKE_BUILD_CMD.format(PORT=port)
+    cmake_gen_command = CMAKE_GEN_CMD.format(PORT=port, PLATFORM=platform)
+    cmake_build_command = CMAKE_BUILD_CMD.format(PORT=port, PLATFORM=platform)
     print(cmake_gen_command)
     ret = os.system(" ".join(cmake_gen_command.split("\n")))
     if ret != 0:

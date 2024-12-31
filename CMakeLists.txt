@@ -1,20 +1,20 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
-if(PLATFORM STREQUAL "ESP32")
-    include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+if(PORT STREQUAL "ESP32")
+    if (PLATFORM STREQUAL "ESP_IDF")
+        include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
-    message("ESP32 port selected")
-    set(CMAKE_FIND_ROOT_PATH /home/novek/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf)
-    set(CMAKE_C_COMPILER /home/novek/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-gcc)
-    set(CMAKE_CXX_COMPILER /home/novek/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-g++)
-    set(CMAKE_ASM_COMPILER /home/novek/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-gcc)
+        message("ESP32 port selected with ESP_IDF")
+        set(CMAKE_FIND_ROOT_PATH /home/novek/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf)
+        set(CMAKE_C_COMPILER /home/novek/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-gcc)
+        set(CMAKE_CXX_COMPILER /home/novek/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-g++)
+        set(CMAKE_ASM_COMPILER /home/novek/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-gcc)
 
-    set(EXTRA_COMPONENT_DIRS drivers/)
-    idf_build_component(drivers)
+        set(EXTRA_COMPONENT_DIRS src/)
+        idf_build_component(src)
 
-    set(EXTRA_COMPONENT_DIRS src/)
-    idf_build_component(src)
-    add_definitions(-DESP32)
+        set(EXTRA_COMPONENT_DIRS drivers/)
+        idf_build_component(drivers)
 
         add_definitions(-DESP32)
     else ()
