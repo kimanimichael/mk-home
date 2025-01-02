@@ -12,6 +12,8 @@ IMAGE_DIR = '''cmake-build/{PORT}/mk-home.bin'''
 
 ESP_FLASH_APPLICATION_CMD = '''ESPBAUD=921600 ninja -C cmake-build/{PORT}/ flash'''
 
+ST_FLASH_CMD = '''st-flash write cmake-build/{PORT}/mk-home.bin 0x8000000'''
+
 def set_up_idf_env(esp_idf_dir):
     export_cmd = f"source {esp_idf_dir}/esp-idf/export.sh && env"
     try:
@@ -49,6 +51,8 @@ def _flash_application(port, image):
 
     if port == "ESP32":
         flash_cmd = ESP_FLASH_APPLICATION_CMD.format(PORT = port)
+    if port == "STM32F429ZI":
+        flash_cmd = ST_FLASH_CMD.format(PORT = port)
     print(flash_cmd)
     ret = os.system(" ".join(flash_cmd.split("\n")))
     if ret != 0:
