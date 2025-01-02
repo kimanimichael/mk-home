@@ -5,11 +5,11 @@ on:
     branches:
       - master
       - main
+      - f/github_ci
   pull_request:
     branches:
       - master
       - main
-      - f/github_ci
 
 jobs:
   build:
