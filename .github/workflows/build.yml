@@ -76,21 +76,15 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v3
 
-      - name: Install ESP_IDF
+      - name: Configure and build
         uses: espressif/esp-idf-ci-action@v1
         with:
           esp_idf_version: v5.2.3
           target: esp32
 
-      - name: Build
-        run: |
-          source /opt/esp/idf/export.sh 
-          idf.py set-target esp32
-          cmake -S .  -B cmake-build/ESP32 -G Ninja -DPORT=ESP32 -DPLATFORM=ESP_IDF
-          cmake --build cmake-build/ESP32
       - name: Check for Binary
         run: |
-          if [ ! -f cmake-build/ESP32/mk-home.bin ]; then
+          if [ ! -f /app/kimanimichael/mk-home/build/mk-home.bin ]; then
             echo "Binary not generated"
             exit 1
           fi
@@ -98,4 +92,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: mk-home-esp32-binary
-          path: cmake-build/ESP32/mk-home.bin
+          path:  /app/kimanimichael/mk-home/build/mk-home.bin
