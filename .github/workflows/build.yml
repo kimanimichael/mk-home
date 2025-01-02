@@ -1,0 +1,61 @@
+name: Build and Test Baremetal ARM
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+      - f/github_ci
+
+jobs:
+  build:
+    name: Build Baremetal ARM
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install ARM GCC
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi python3-pip
+          pip3 install mbed-tools
+
+      - name: Install mbed-os
+        working-directory: external
+        run: |
+          mbed-tools deploy
+
+      - name: Verify mbed-os folder
+        run: |
+          if [ ! -d external/mbed-os ]; then
+            echo "mbed-os not found in external/ directory. Ensure it exists or update the script."
+            exit 1
+          fi
+
+      - name: Configure mbed-os
+        run: |
+          mbed-tools configure -m NUCLEO_F429ZI -t GCC_ARM -o cmake-build/STM32F429ZI/mbed --mbed-os-path external/mbed-os
+
+      - name: Configure and build
+        run: |
+          cmake -S .  -B cmake-build/STM32F429ZI -G Ninja -DPORT=STM32F429ZI -DPLATFORM=mbed-os
+          cmake --build cmake-build/STM32F429ZI --verbose
+
+      - name: Check for Binary
+        run: |
+          if [ ! -f cmake-build/STM32F429ZI/mk-home.bin ]; then
+            echo "Binary not generated!"
+            exit 1
+          fi
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mk-home
+          path: cmake-build/STM32F429ZI/
