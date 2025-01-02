@@ -54,7 +54,7 @@ jobs:
       - name: Configure and build
         run: |
           cmake -S .  -B cmake-build/STM32F429ZI -G Ninja -DPORT=STM32F429ZI -DPLATFORM=mbed-os
-          cmake --build cmake-build/STM32F429ZI --verbose
+          cmake --build cmake-build/STM32F429ZI
 
       - name: Check for Binary
         run: |
