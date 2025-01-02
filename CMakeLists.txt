@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
-if(PORT NOT DEFINED)
+if(NOT DEFINED PORT)
     set (PORT "ESP32")
     set (PLATFORM "ESP_IDF")
 endif ()
