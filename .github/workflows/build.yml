@@ -79,11 +79,12 @@ jobs:
       - name: Install ESP_IDF
         uses: espressif/esp-idf-ci-action@v1
         with:
-          esp_idf_version: latest
+          esp_idf_version: v5.1.1
           target: esp32
+
       - name: Build
         run: |
-          . $IDF_PATH/export.sh
+          source /opt/esp/idf/export.sh 
           idf.py set-target esp32
           cmake -S .  -B cmake-build/ESP32 -G Ninja -DPORT=ESP32 -DPLATFORM=ESP_IDF
           cmake --build cmake-build/ESP32
