@@ -5,10 +5,16 @@ on:
     branches:
       - master
       - main
+    paths-ignore:
+      - README.md
+      - LICENSE
   pull_request:
     branches:
       - master
       - main
+    paths-ignore:
+      - README.md
+      - LICENSE
 
 jobs:
   build-stm32:
