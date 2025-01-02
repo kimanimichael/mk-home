@@ -11,8 +11,8 @@ on:
       - main
 
 jobs:
-  build:
-    name: Build Baremetal ARM
+  build-stm32:
+    name: Build mk-home stm32
     runs-on: ubuntu-latest
 
     steps:
@@ -66,5 +66,35 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: mk-home-binary
+          name: mk-home-stm32-binary
           path: cmake-build/STM32F429ZI/mk-home.bin
+  build-esp32:
+    name: Build mk-home esp32
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: Install ESP_IDF
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: latest
+          target: esp32
+      - name: Build
+        run: |
+          . $IDF_PATH/export.sh
+          idf.py set-target esp32
+          cmake -S .  -B cmake-build/ESP32 -G Ninja -DPORT=ESP32 -DPLATFORM=ESP_IDF
+          cmake --build cmake-build/ESP32
+      - name: Check for Binary
+        run: |
+          if [ ! -f cmake-build/ESP32/mk-home.bin ]; then
+            echo "Binary not generated"
+            exit 1
+          fi
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mk-home-esp32-binary
+          path: cmake-build/ESP32/mk-home.bin
