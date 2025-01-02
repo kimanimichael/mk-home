@@ -25,10 +25,20 @@ jobs:
           sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi python3-pip ninja-build
           pip3 install mbed-tools
 
-      - name: Install mbed-os
+      - name: Cache mbed-os
+        id: cache-mbed-os
+        uses: actions/cache@v3
+        with:
+          path: external/mbed-os
+          key: mbed-os-${{ hashFiles('external/mbed-os.lib') }}
+          restore-keys: |
+            mbed-os-
+
+      - name: Install mbed-os (if not cached)
+        if: steps.cache-mbed-os.outputs.cache-hit != 'true'
         working-directory: external
         run: |
-          mbed-tools deploy
+            mbed-tools deploy
 
       - name: Verify mbed-os folder
         run: |
