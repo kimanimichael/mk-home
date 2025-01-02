@@ -57,5 +57,5 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: mk-home
-          path: cmake-build/STM32F429ZI/
+          name: mk-home-binary
+          path: cmake-build/STM32F429ZI/mk-home.bin
