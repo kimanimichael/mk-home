@@ -85,12 +85,13 @@ jobs:
       - name: Check for Binary
         run: |
           echo "Listing build directory contents:"
-          ls -la /app/kimanimichael/mk-home/build/
-          if [ ! -f /app/kimanimichael/mk-home/build/mk-home.bin ]; then
+          ls -la build/
+          if [ ! -f build/mk-home.bin ]; then
             echo "Binary not generated"
           exit 1
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: mk-home-esp32-binary
-          path:  /app/kimanimichael/mk-home/build/mk-home.bin
+          path: build/mk-home.bin
+                build/partition_table/partition-table.bin
