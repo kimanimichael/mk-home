@@ -23,7 +23,7 @@ jobs:
       - name: Install ARM GCC
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi python3-pip
+          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi python3-pip ninja-build
           pip3 install mbed-tools
 
       - name: Install mbed-os
