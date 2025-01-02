@@ -93,3 +93,5 @@ jobs:
         with:
           name: mk-home-esp32-binary
           path: build/mk-home.bin
+                build/bootloader/bootloader.bin
+                build/partition_table/partition-table.bin
