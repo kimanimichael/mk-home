@@ -27,6 +27,8 @@ jobs:
             /usr/bin/arm-none-eabi-*
             /usr/lib/arm-none-eabi
             /usr/share/arm-none-eabi
+            /usr/include/arm-none-eabi
+            /usr/lib/gcc/arm-none-eabi
             /usr/bin/ninja
           key: tools-${{ runner.os }}-gcc-arm-none-eabi-binutils-ninja
           restore-keys: |
