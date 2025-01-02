@@ -11,63 +11,63 @@ on:
       - main
 
 jobs:
-#  build-stm32:
-#    name: Build mk-home stm32
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Install dependencies
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi ninja-build
-#          pip3 install mbed-tools
-#
-#      - name: Cache mbed-os
-#        id: cache-mbed-os
-#        uses: actions/cache@v3
-#        with:
-#          path: external/mbed-os
-#          key: mbed-os-${{ hashFiles('external/mbed-os.lib') }}
-#          restore-keys: |
-#            mbed-os-
-#
-#      - name: Install mbed-os (if not cached)
-#        if: steps.cache-mbed-os.outputs.cache-hit != 'true'
-#        working-directory: external
-#        run: |
-#            mbed-tools deploy
-#
-#      - name: Verify mbed-os folder
-#        run: |
-#          if [ ! -d external/mbed-os ]; then
-#            echo "mbed-os not found in external/ directory. Ensure it exists or update the script."
-#            exit 1
-#          fi
-#
-#      - name: Configure mbed-os
-#        run: |
-#          mbed-tools configure -m NUCLEO_F429ZI -t GCC_ARM -o cmake-build/STM32F429ZI/mbed --mbed-os-path external/mbed-os
-#
-#      - name: Configure and build
-#        run: |
-#          cmake -S .  -B cmake-build/STM32F429ZI -G Ninja -DPORT=STM32F429ZI -DPLATFORM=mbed-os
-#          cmake --build cmake-build/STM32F429ZI
-#
-#      - name: Check for Binary
-#        run: |
-#          if [ ! -f cmake-build/STM32F429ZI/mk-home.bin ]; then
-#            echo "Binary not generated!"
-#            exit 1
-#          fi
-#
-#      - name: Upload Build Artifacts
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: mk-home-stm32-binary
-#          path: cmake-build/STM32F429ZI/mk-home.bin
+  build-stm32:
+    name: Build mk-home stm32
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi ninja-build
+          pip3 install mbed-tools
+
+      - name: Cache mbed-os
+        id: cache-mbed-os
+        uses: actions/cache@v3
+        with:
+          path: external/mbed-os
+          key: mbed-os-${{ hashFiles('external/mbed-os.lib') }}
+          restore-keys: |
+            mbed-os-
+
+      - name: Install mbed-os (if not cached)
+        if: steps.cache-mbed-os.outputs.cache-hit != 'true'
+        working-directory: external
+        run: |
+            mbed-tools deploy
+
+      - name: Verify mbed-os folder
+        run: |
+          if [ ! -d external/mbed-os ]; then
+            echo "mbed-os not found in external/ directory. Ensure it exists or update the script."
+            exit 1
+          fi
+
+      - name: Configure mbed-os
+        run: |
+          mbed-tools configure -m NUCLEO_F429ZI -t GCC_ARM -o cmake-build/STM32F429ZI/mbed --mbed-os-path external/mbed-os
+
+      - name: Configure and build
+        run: |
+          cmake -S .  -B cmake-build/STM32F429ZI -G Ninja -DPORT=STM32F429ZI -DPLATFORM=mbed-os
+          cmake --build cmake-build/STM32F429ZI
+
+      - name: Check for Binary
+        run: |
+          if [ ! -f cmake-build/STM32F429ZI/mk-home.bin ]; then
+            echo "Binary not generated!"
+            exit 1
+          fi
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mk-home-stm32-binary
+          path: cmake-build/STM32F429ZI/mk-home.bin
   build-esp32:
     name: Build mk-home esp32
     runs-on: ubuntu-latest
