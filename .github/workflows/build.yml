@@ -84,10 +84,10 @@ jobs:
 
       - name: Check for Binary
         run: |
-          echo "Listing build directory contents:"
           if [ ! -f build/mk-home.bin ]; then
             echo "Binary not generated"
           exit 1
+          fi
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
