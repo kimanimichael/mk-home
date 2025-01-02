@@ -19,29 +19,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Cache system tools
-        id: cache-tools
-        uses: actions/cache@v3
-        with:
-          path: |
-            /usr/bin/arm-none-eabi-*
-            /usr/lib/arm-none-eabi
-            /usr/share/arm-none-eabi
-            /usr/include/arm-none-eabi
-            /usr/lib/gcc/arm-none-eabi
-            /usr/bin/ninja
-          key: tools-${{ runner.os }}-gcc-arm-none-eabi-binutils-ninja
-          restore-keys: |
-            tools-${{ runner.os }}-
-
-      - name: Install ARM GCC and Ninja (if not cached)
-        if: steps.cache-tools.outputs.cache-hit != 'true'
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi ninja-build
-
-      - name: Install mbed-tools
-        run: |
           pip3 install mbed-tools
 
       - name: Cache mbed-os
