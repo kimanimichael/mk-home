@@ -47,7 +47,7 @@ void handler_on_sta_got_ip(void *arg, esp_event_base_t event_base,
                       int32_t event_id, void *event_data)
 {
     s_retry_num = 0;
-    ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
+    const auto *event = static_cast<ip_event_got_ip_t*>(event_data);
     // if (!example_is_our_netif(EXAMPLE_NETIF_DESC_STA, event->esp_netif)) {
     //     return;
     // }
@@ -92,7 +92,7 @@ esp_err_t wifi_sta_do_connect(wifi_config_t wifi_config, bool wait)
 {
     if (wait) {
         s_semph_get_ip_addrs = xSemaphoreCreateBinary();
-        if (s_semph_get_ip_addrs == NULL) {
+        if (s_semph_get_ip_addrs == nullptr) {
             return ESP_ERR_NO_MEM;
         }
         #if CONFIG_EXAMPLE_CONNECT_IPV6
@@ -104,14 +104,14 @@ esp_err_t wifi_sta_do_connect(wifi_config_t wifi_config, bool wait)
         #endif
     }
     s_retry_num = 0;
-    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, WIFI_EVENT_STA_DISCONNECTED, &on_wifi_disconnect, NULL));
-    ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &handler_on_sta_got_ip, NULL));
+    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, WIFI_EVENT_STA_DISCONNECTED, &on_wifi_disconnect, nullptr));
+    ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &handler_on_sta_got_ip, nullptr));
     ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, WIFI_EVENT_STA_CONNECTED, &handler_on_wifi_connect, s_example_sta_netif));
     #if CONFIG_EXAMPLE_CONNECT_IPV6
     ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_GOT_IP6, &handler_on_sta_got_ipv6, NULL));
     #endif
 
-    ESP_LOGI(TAG, "Connecting to %s...", wifi_config.sta.ssid);
+    ESP_LOGI(TAG, "Connecting to %p...", wifi_config.sta.ssid);
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
     esp_err_t ret = esp_wifi_connect();
     if (ret != ESP_OK) {
@@ -133,7 +133,7 @@ esp_err_t wifi_sta_do_connect(wifi_config_t wifi_config, bool wait)
     return ESP_OK;
 }
 
-esp_err_t example_wifi_sta_do_disconnect(void)
+esp_err_t example_wifi_sta_do_disconnect()
 {
     ESP_ERROR_CHECK(esp_event_handler_unregister(WIFI_EVENT, WIFI_EVENT_STA_DISCONNECTED, &on_wifi_disconnect));
     ESP_ERROR_CHECK(esp_event_handler_unregister(IP_EVENT, IP_EVENT_STA_GOT_IP, &handler_on_sta_got_ip));
