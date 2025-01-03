@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
+if(NOT DEFINED PORT)
+    set (PORT "ESP32")
+    set (PLATFORM "ESP_IDF")
+endif ()
+
 if(PORT STREQUAL "ESP32")
     if (PLATFORM STREQUAL "ESP_IDF")
         include($ENV{IDF_PATH}/tools/cmake/project.cmake)
