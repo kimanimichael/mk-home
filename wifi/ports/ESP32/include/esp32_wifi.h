@@ -9,7 +9,7 @@
 static void on_wifi_disconnect(void *arg, esp_event_base_t event_base,
                            int32_t event_id, void *event_data);
 
-static esp_err_t example_wifi_sta_do_disconnect(void);
+static esp_err_t wifi_sta_do_disconnect(void);
 
 static void handler_on_sta_got_ip(void *arg, esp_event_base_t event_base,
                   int32_t event_id, void *event_data);

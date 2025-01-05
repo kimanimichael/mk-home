@@ -24,7 +24,7 @@ void on_wifi_disconnect(void *arg, esp_event_base_t event_base,
             xSemaphoreGive(s_semph_get_ip6_addrs);
         }
         #endif
-        example_wifi_sta_do_disconnect();
+        wifi_sta_do_disconnect();
         return;
     }
     ESP_LOGI(TAG, "Wi-Fi disconnected, trying to reconnect...");
@@ -133,7 +133,7 @@ esp_err_t wifi_sta_do_connect(wifi_config_t wifi_config, bool wait)
     return ESP_OK;
 }
 
-esp_err_t example_wifi_sta_do_disconnect()
+esp_err_t wifi_sta_do_disconnect()
 {
     ESP_ERROR_CHECK(esp_event_handler_unregister(WIFI_EVENT, WIFI_EVENT_STA_DISCONNECTED, &on_wifi_disconnect));
     ESP_ERROR_CHECK(esp_event_handler_unregister(IP_EVENT, IP_EVENT_STA_GOT_IP, &handler_on_sta_got_ip));
@@ -214,6 +214,6 @@ esp_err_t mk_wifi_connect(void)
 
 void wifi_shutdown(void)
 {
-    example_wifi_sta_do_disconnect();
+    wifi_sta_do_disconnect();
     wifi_stop();
 }
