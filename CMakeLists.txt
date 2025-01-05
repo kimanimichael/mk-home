@@ -21,6 +21,9 @@ if(PORT STREQUAL "ESP32")
         set(EXTRA_COMPONENT_DIRS drivers/)
         idf_build_component(drivers)
 
+        set(EXTRA_COMPONENT_DIRS mk-home-mqtt/)
+        idf_build_component(mk-home-mqtt)
+
         set(EXTRA_COMPONENT_DIRS wifi/)
         idf_build_component(wifi)
 
