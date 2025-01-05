@@ -19,5 +19,11 @@ static void handler_on_wifi_connect(void *esp_netif, esp_event_base_t event_base
 
 static esp_err_t wifi_sta_do_connect(wifi_config_t wifi_config, bool wait);
 
+esp_err_t mk_wifi_connect(void);
+
+esp_err_t mk_home_connect(void);
+
+void wifi_shutdown(void);
+
 
 #endif
