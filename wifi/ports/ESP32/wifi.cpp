@@ -179,14 +179,16 @@ esp_err_t mk_wifi_connect(void)
     wifi_init();
     wifi_config_t wifi_config = {
         .sta = {
-            #if !CONFIG_EXAMPLE_WIFI_SSID_PWD_FROM_STDIN
+#if !CONFIG_EXAMPLE_WIFI_SSID_PWD_FROM_STDIN
             .ssid = "MK_WIFI",
             .password = "syndeo3%",
 #endif
             .scan_method = EXAMPLE_WIFI_SCAN_METHOD,
             .sort_method = EXAMPLE_WIFI_CONNECT_AP_SORT_METHOD,
-            .threshold.rssi = CONFIG_EXAMPLE_WIFI_SCAN_RSSI_THRESHOLD,
-            .threshold.authmode = EXAMPLE_WIFI_SCAN_AUTH_MODE_THRESHOLD,
+            .threshold ={
+                .rssi = CONFIG_EXAMPLE_WIFI_SCAN_RSSI_THRESHOLD,
+                .authmode = EXAMPLE_WIFI_SCAN_AUTH_MODE_THRESHOLD
+            }
         },
     };
     #if CONFIG_EXAMPLE_WIFI_SSID_PWD_FROM_STDIN
