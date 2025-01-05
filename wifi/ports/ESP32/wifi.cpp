@@ -35,7 +35,7 @@ void on_wifi_disconnect(void *arg, esp_event_base_t event_base,
     ESP_ERROR_CHECK(err);
 }
 
-void handler_on_wifi_connect(void *esp_netif, esp_event_base_t event_base,
+static void handler_on_wifi_connect(void *esp_netif, esp_event_base_t event_base,
                             int32_t event_id, void *event_data)
 {
     #if CONFIG_EXAMPLE_CONNECT_IPV6
@@ -43,7 +43,7 @@ void handler_on_wifi_connect(void *esp_netif, esp_event_base_t event_base,
     #endif // CONFIG_EXAMPLE_CONNECT_IPV6
 }
 
-void handler_on_sta_got_ip(void *arg, esp_event_base_t event_base,
+static void handler_on_sta_got_ip(void *arg, esp_event_base_t event_base,
                       int32_t event_id, void *event_data)
 {
     s_retry_num = 0;
@@ -88,7 +88,7 @@ void wifi_stop() {
     s_example_sta_netif = nullptr;
 }
 
-esp_err_t wifi_sta_do_connect(wifi_config_t wifi_config, bool wait)
+static esp_err_t wifi_sta_do_connect(wifi_config_t wifi_config, bool wait)
 {
     if (wait) {
         s_semph_get_ip_addrs = xSemaphoreCreateBinary();
