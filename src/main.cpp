@@ -15,11 +15,12 @@ int main()
     MQTTClient::get_internet_connection();
     MQTTClient::start();
     while (1) {
+
         BSP::BSP_LED_on();
-        MQTTClient::send_mqtt_message("/topic/qos0", "Temp: 25 deg Celsius\n");
-        BSP::BSP_delay(200);
+        MQTTClient::send_mqtt_message("/MK_HOME_NAKUJA", "{\"ev\":\"sensors\",\"temp\":25, \"brightness\":500, \"pressure\":98 }\n");
+        BSP::BSP_delay(10000);
         BSP::BSP_LED_off();
-        MQTTClient::send_mqtt_message("/topic/qos0", "Brightness: 500 nits\n");
-        BSP::BSP_delay(200);
+        MQTTClient::send_mqtt_message("/MK_HOME_NAKUJA", "{\"ev\":\"devices\",\"fridge\":ON, \"microwave\":OFF, \"NAKUJA_MK\":ON }\n");
+        BSP::BSP_delay(10000);
     }
 }
