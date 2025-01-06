@@ -13,5 +13,6 @@ else ()
             "main.cpp"
             REQUIRES
             drivers
+            "mk-home-mqtt"
     )
 endif ()

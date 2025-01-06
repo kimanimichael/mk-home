@@ -1,4 +1,5 @@
 #include "bsp.h"
+#include "mqtt.h"
 
 
 #ifdef ESP32
@@ -9,10 +10,17 @@ int main()
 {
     BSP::BSP_init();
     BSP::BSP_LED_on();
+
+    MQTTClient::init();
+    MQTTClient::get_internet_connection();
+    MQTTClient::start();
     while (1) {
+
         BSP::BSP_LED_on();
-        BSP::BSP_delay(200);
+        MQTTClient::send_mqtt_message("/MK_HOME_NAKUJA", "{\"ev\":\"sensors\",\"temp\":25, \"brightness\":500, \"pressure\":98 }\n");
+        BSP::BSP_delay(10000);
         BSP::BSP_LED_off();
-        BSP::BSP_delay(200);
+        MQTTClient::send_mqtt_message("/MK_HOME_NAKUJA", "{\"ev\":\"devices\",\"fridge\":ON, \"microwave\":OFF, \"NAKUJA_MK\":ON }\n");
+        BSP::BSP_delay(10000);
     }
 }
