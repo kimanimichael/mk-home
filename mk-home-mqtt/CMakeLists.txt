@@ -12,6 +12,7 @@ if (PLATFORM STREQUAL "mbed-os")
             ${CMAKE_CURRENT_SOURCE_DIR}/include/
     )
     target_sources(mqtt INTERFACE
+            ${CMAKE_CURRENT_SOURCE_DIR}/ports/mbed-common/mqtt.cpp
     )
 else ()
     idf_component_register(

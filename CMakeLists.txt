@@ -54,6 +54,7 @@ elseif(PORT STREQUAL "STM32F429ZI")
         add_subdirectory(${MBED_PATH})
         add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/drivers)
         add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
+        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/mk-home-mqtt)
 
         add_executable(${APP_TARGET})
         mbed_configure_app_target(${APP_TARGET})
@@ -63,6 +64,7 @@ elseif(PORT STREQUAL "STM32F429ZI")
                 mbed-os
                 drivers
                 src
+                mqtt
         )
         mbed_set_post_build(${APP_TARGET})
 
