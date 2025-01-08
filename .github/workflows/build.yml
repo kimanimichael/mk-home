@@ -1,4 +1,4 @@
-name: Build and Test Baremetal ARM
+name: Build and Test mk-home
 
 on:
   push:
