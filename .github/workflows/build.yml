@@ -1,4 +1,4 @@
-name: Build and Test Baremetal ARM
+name: Build and Test mk-home
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -33,7 +33,7 @@ jobs:
 
       - name: Cache mbed-os
         id: cache-mbed-os
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: external/mbed-os
           key: mbed-os-${{ hashFiles('external/mbed-os.lib') }}
@@ -70,7 +70,7 @@ jobs:
           fi
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mk-home-stm32-binary
           path: cmake-build/STM32F429ZI/mk-home.bin
@@ -80,7 +80,7 @@ jobs:
 
     steps:
       - name: checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configure and build
         uses: espressif/esp-idf-ci-action@v1
@@ -95,7 +95,7 @@ jobs:
           exit 1
           fi
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mk-home-esp32-binary
           path: |
