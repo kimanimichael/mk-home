@@ -14,5 +14,6 @@ else ()
             REQUIRES
             drivers
             "mk-home-mqtt"
+            "mk-home-http"
     )
 endif ()
