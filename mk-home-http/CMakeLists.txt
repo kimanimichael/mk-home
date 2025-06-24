@@ -23,11 +23,13 @@ else ()
             "ports/ESP32"
             REQUIRES
             "driver"
+            drivers
             "nvs_flash"
             "esp_netif"
             "esp_event"
             "esp_http_client"
             "esp-tls"
+            "esp_hw_support"
             "wifi"
     )
 endif ()

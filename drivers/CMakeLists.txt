@@ -21,10 +21,13 @@ else ()
     idf_component_register(
             SRCS
             "ports/ESP32/actuators/led.cpp"
+            "ports/ESP32/mcu/ESP32_MCU.cpp"
             "ports/ESP32/bsp.cpp"
             INCLUDE_DIRS
             "./include"
             "./include/actuators"
+            "./include/mcu"
+            "ports/ESP32/mcu/"
             REQUIRES
             "driver"
     )

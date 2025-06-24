@@ -1,6 +1,7 @@
 #ifndef __BSP_H__
 #define __BSP_H__
 #include "led.h"
+#include "mcu.h"
 
 namespace BSP
 {
@@ -15,6 +16,8 @@ namespace BSP
     void BSP_alternate_LED_on();
 
     void BSP_alternate_LED_off();
+
+    MCU* BSP_get_MCU();
 
     /**
      * @brief blocking wait in line

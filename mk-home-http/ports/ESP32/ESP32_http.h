@@ -34,6 +34,8 @@ private:
 
     esp_err_t _err = {};
 
+    char _url[256] = {};
+
 };
 
 #endif //ESP32_HTTP_H
