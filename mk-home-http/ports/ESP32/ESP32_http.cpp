@@ -41,11 +41,12 @@ void ESP32HttpClient::_init() {
     esp_log_level_set("outbox", ESP_LOG_VERBOSE);
 
     snprintf(_url, sizeof(_url),
-             "http://michael.alwaysdata.net/mk/message/%s",
+             "https://michael.alwaysdata.net/mk/message/%s",
              BSP::BSP_get_MCU()->get_mcu_id());
     ESP_LOGI(TAG, "Full URL: %s", _url);
 
     _config.url = _url;
+    _config.cert_pem = root_ca_pem;
     _client = esp_http_client_init(&_config);
 }
 

@@ -7,6 +7,7 @@
 
 #include "http.h"
 #include "esp_http_client.h"
+#include "root_ca.h"
 
 
 class ESP32HttpClient: public HTTPClient {
@@ -26,9 +27,9 @@ private:
     static esp_err_t _http_event_handler(esp_http_client_event_t *evt);
 
     esp_http_client_config_t _config = {
-        .url = "http://michael.alwaysdata.net/mk/message/1e0041-31335113-35323938",
+        .url = {},
         .auth_type = HTTP_AUTH_TYPE_NONE,
-        .transport_type = HTTP_TRANSPORT_OVER_TCP,
+        .transport_type = HTTP_TRANSPORT_OVER_SSL,
     };
     esp_http_client_handle_t _client = {};
 
