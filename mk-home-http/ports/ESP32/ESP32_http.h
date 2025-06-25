@@ -5,6 +5,8 @@
 #ifndef ESP32_HTTP_H
 #define ESP32_HTTP_H
 
+#define MAX_HTTP_OUTPUT_BUFFER 2048
+
 #include "http.h"
 #include "esp_http_client.h"
 #include "root_ca.h"
@@ -36,6 +38,8 @@ private:
     esp_err_t _err = {};
 
     char _url[256] = {};
+
+    char _response_buffer[MAX_HTTP_OUTPUT_BUFFER] = {0};
 
 };
 
