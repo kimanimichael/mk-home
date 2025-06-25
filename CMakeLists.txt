@@ -24,6 +24,9 @@ if(PORT STREQUAL "ESP32")
         set(EXTRA_COMPONENT_DIRS mk-home-mqtt/)
         idf_build_component(mk-home-mqtt)
 
+        set(EXTRA_COMPONENT_DIRS mk-home-http/)
+        idf_build_component(mk-home-http)
+
         set(EXTRA_COMPONENT_DIRS wifi/)
         idf_build_component(wifi)
 
@@ -55,6 +58,7 @@ elseif(PORT STREQUAL "STM32F429ZI")
         add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/drivers)
         add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
         add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/mk-home-mqtt)
+        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/mk-home-http)
 
         add_executable(${APP_TARGET})
         mbed_configure_app_target(${APP_TARGET})
@@ -65,6 +69,7 @@ elseif(PORT STREQUAL "STM32F429ZI")
                 drivers
                 src
                 mqtt
+                http
         )
         mbed_set_post_build(${APP_TARGET})
 

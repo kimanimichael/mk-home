@@ -1,5 +1,6 @@
 #include "led.h"
 #include "bsp.h"
+#include "ESP32_MCU.h"
 #include "freertos/FreeRTOS.h"
 
 #include <cstdint>
@@ -32,6 +33,12 @@ namespace BSP{
     void BSP_delay(unsigned int ms) {
         vTaskDelay(ms/portTICK_PERIOD_MS);
     }
+
+    MCU* BSP_get_MCU() {
+        static ESP32_MCU mcu;
+        return &mcu;
+    }
+
 
 
     LED* get_default_onboard_led() {
