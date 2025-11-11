@@ -65,6 +65,9 @@ void ESP32HttpClient::_post(const char *message) {
         ESP_LOGE(TAG, "HTTP POST request failed: %s", esp_err_to_name(_err));
     }
 
+    if (_err != ESP_OK) {
+        ESP_LOGE(TAG, "HTTP POST cleanup failed: %s", esp_err_to_name(_err));
+    }
 }
 
 void ESP32HttpClient::_close() {
