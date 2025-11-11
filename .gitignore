@@ -1,5 +1,7 @@
 .idea/
+build/
 cmake_build*
 cmake-build*
 sdkconfig
 external/mbed-os
+managed_components

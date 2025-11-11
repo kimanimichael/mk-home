@@ -2,6 +2,7 @@
 #define __BSP_H__
 #include "led.h"
 #include "mcu.h"
+#include "ntc.h"
 
 namespace BSP
 {
@@ -18,6 +19,8 @@ namespace BSP
     void BSP_alternate_LED_off();
 
     MCU* BSP_get_MCU();
+
+    NTC* get_ambient_ntc();
 
     /**
      * @brief blocking wait in line
