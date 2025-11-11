@@ -30,6 +30,7 @@ if(PORT STREQUAL "ESP32")
         set(EXTRA_COMPONENT_DIRS wifi/)
         idf_build_component(wifi)
 
+        set(EXTRA_COMPONENT_DIRS external/components/esp-iot-solution/components/sensors/ntc_driver)
 
         add_definitions(-DESP32)
     else ()
