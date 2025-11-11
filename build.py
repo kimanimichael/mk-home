@@ -5,7 +5,7 @@ import os
 
 ESP_IDF_DIR = '''$HOME/esp/'''
 
-CMAKE_GEN_CMD = '''cmake -S .  -B cmake-build/{PORT} -G Ninja -DPORT={PORT} -DPLATFORM={PLATFORM}'''
+CMAKE_GEN_CMD = '''cmake -S .  -B cmake-build/{PORT} -G Ninja -DPORT={PORT} -DPLATFORM={PLATFORM} -DIDF_TARGET=esp32s3'''
 CMAKE_BUILD_CMD = '''cmake --build cmake-build/{PORT}'''
 
 IMAGE_DIR = '''cmake-build/{PORT}/mk-home.bin'''
