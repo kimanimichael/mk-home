@@ -1,3 +1,6 @@
 [submodule "external/components/esp-iot-solution"]
 	path = external/components/esp-iot-solution
 	url = https://github.com/espressif/esp-iot-solution.git
+[submodule "wifi"]
+	path = wifi
+	url = git@github.com:kimanimichael/esp-wifi.git
