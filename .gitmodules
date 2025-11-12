@@ -4,3 +4,6 @@
 [submodule "wifi"]
 	path = wifi
 	url = git@github.com:kimanimichael/esp-wifi.git
+[submodule "mk-home-http"]
+	path = mk-home-http
+	url = git@github.com:kimanimichael/mk-esp-http.git
